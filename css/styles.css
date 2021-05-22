@@ -256,6 +256,10 @@ code {
   height: 5em;
 }
 
+.change-date {
+  font-size: 18px;
+}
+
 table {
   border-collapse: collapse;
   border-style: hidden;
