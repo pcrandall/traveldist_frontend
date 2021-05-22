@@ -57,16 +57,7 @@ code {
   cursor: pointer;
 }
 
-#last-distance,
-#last-date,
-#last-notes {
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
-}
+
 
 .ssi-header-logo {
   float: right;
@@ -257,4 +248,37 @@ code {
 }
 .N1111 {
   grid-area: 4 / 12 / span 1 / span 1;
+}
+
+
+#last-notes {
+  overflow-y: scroll;
+  height: 5em;
+}
+
+table {
+  border-collapse: collapse;
+  border-style: hidden;
+}
+table td th{
+  border: 1.5px solid #EEE;
+}
+
+td {
+  margin-left: 2em;
+}
+
+th {
+  margin: auto;
+  padding: auto;
+  width: 10em;
+}
+
+.noselect{
+  -webkit-touch-callout: none !important; /* iOS Safari */
+  -webkit-user-select:   none !important; /* Safari */
+  -khtml-user-select:    none !important; /* Konqueror HTML */
+  -moz-user-select:      none !important; /* Old versions of Firefox */
+  -ms-user-select:       none !important; /* Internet Explorer/Edge */
+  -user-select:          none !important; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
 }
