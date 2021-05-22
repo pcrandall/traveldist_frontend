@@ -7,12 +7,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1;
-  background: #eaeaea !important;
+  background: #EAEAEA !important;
   height: 100%;
   margin: 0.5em;
   font: "Segoe UI", Arial, Helvetica, sans-serif;
-  overflow-y: auto;
-  overflow-x: auto;
 }
 
 code {
@@ -49,27 +47,26 @@ code {
 }
 
 .containerStyle {
-  background: #EAEAEA;
-  border: 1px dashed #BBB;
+  background: #eaeaea;
+  border: 1px dashed #bbb;
   margin: 5px auto;
   color: #555;
   min-height: 86vh;
   min-width: 98%;
   overflow: auto;
   cursor: pointer;
-  -webkit-touch-callout: none;
-  /* iOS Safari */
-  -webkit-user-select: none;
-  /* Safari */
-  -khtml-user-select: none;
-  /* Konqueror HTML */
-  -moz-user-select: none;
-  /* Old versions of Firefox */
-  -ms-user-select: none;
-  /* Internet Explorer/Edge */
-  user-select: none;
 }
 
+#last-distance,
+#last-date,
+#last-notes {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+}
 
 .ssi-header-logo {
   float: right;
@@ -94,6 +91,7 @@ code {
   display: inline-block;
   text-align: left;
   vertical-align: middle;
+  overflow: hidden !important;
 }
 
 .navStyle {

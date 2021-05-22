@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
+  <!-- TODO: -->
+  <!-- - make body stop moving when modal opens -->
+  <!-- - modal columns -->
+  <!-- - read from local db -->
+  <!-- - send request to backend to update values -->
   <head>
     <title>Travel Distances</title>
     <meta charset="UTF-8" />
@@ -28,8 +33,8 @@
       href="https://cdn.jsdelivr.net/npm/@duetds/date-picker@1.3.0/dist/duet/themes/default.css"
     />
 
+    <!-- get the datepicker selected value -->
     <script>
-      <!-- get the datepicker selected value -->
         const picker = document.querySelector("duet-date-picker");
         const output = document.querySelector("output");
         picker.addEventListener("duetChange", function (event) {
@@ -37,12 +42,34 @@
         });
     </script>
 
+    <!-- document ready -->
     <script>
       $(document).ready(function () {
+          <!-- navette buttons send data to modal form -->
+          $("#distanceContainer").on("click", "button", function (e) {
+              <!-- $("#shoesModal").modal({backdrop: "static"}); -->
+              var myid = this.id;
+              $("#shoes-current-title").text(myid + " Current Values")
+              $("#shoes-change-title").text("Shoes Change")
+
+              <!-- $(".modal-title ").text(myid + " Current Values") -->
+
+              $("#modal-body-distance ").text("current distance: ");
+              $("#last-notes").text("GOOD DAY TO YOU SIR");
+              $('#last-distance').attr("value", 17124610)
+              $('#last-date').attr("value", "2021-04-20")
+
+              <!-- update last notes text -->
+              <!-- $("#lastNotes").text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."); -->
+              <!-- console.log({ e }); -->
+              <!-- console.log(this.id); -->
+          });
+
           <!-- modal clears the form when hidden-->
-          $("#shoesmodal").on('hidden.bs.modal', function(){
+          $("#shoesModal").on('hidden.bs.modal', function(){
               $(this).find('form')[0].reset();
           });
+
 
           <!-- populate the button value with the id or random number for testing if empty -->
           const navButtons = $('[id^=N]');
@@ -65,23 +92,19 @@
             let name = txt.slice(0,4)
                   $("#"+value.id).text(name)
           });
-
-          <!-- navette buttons send data to modal form -->
-          $("#distanceContainer").on("click", "button", function (e) {
-              var myid = this.id;
-              $(".modal-title ").text(myid + " Current values");
-              $("#modal-body-distance ").text("current distance: ");
-              $("#modal-body-date").text("last change date: ");
-              $("#modal-body-notes").text("notes: ");
-
-              <!-- update last notes text -->
-              <!-- $("#lastNotes").text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."); -->
-              <!-- console.log({ e }); -->
-              <!-- console.log(this.id); -->
-          });
         });
     </script>
 
+    <!-- stop modal scrolling -->
+    <script>
+      $("#shoesModal").on("show", function () {
+        $("body").addClass("modal-open");
+      }).on("hidden", function () {
+        $("body").removeClass("modal-open")
+      });
+    </script>
+
+    <!-- getRandomInt -->
     <script>
       function getRandomInt(max) {
         return Math.floor(Math.random() * max);
@@ -162,6 +185,7 @@
       <div><button data-toggle="modal" data-target="#shoesModal" id="N1112" class="N1112 navStyle btn btn-success btn-lg" ></button><h4 id="1112-div"  style="text-align: center;"></h4></div>
       <div><button data-toggle="modal" data-target="#shoesModal" id="N1111" class="N1111 navStyle btn btn-success btn-lg" ></button><h4 id="1111-div"  style="text-align: center;"></h4></div>
     </div>
+
     <!-- Modal -->
     <div class="modal fade" id="shoesModal" role="dialog">
       <div class="modal-dialog">
@@ -171,13 +195,13 @@
             <button type="button" class="close" data-dismiss="modal">
               &times;
             </button>
-            <div class="modal-title"></div>
+            <div id="shoes-current-title" class="modal-title"></div>
           </div>
           <div class="modal-body">
             <form>
               <!-- modal current values -->
               <div class="form-group row">
-                <label for="currentDistance" class="col-sm-2 col-form-label"
+                <label class="col-sm-2 col-form-label"
                   >Distance:</label
                 >
                 <div class="col-sm-10">
@@ -185,29 +209,29 @@
                     type="text"
                     readonly
                     class="form-control"
-                    id="lastDistance"
+                    id="last-distance"
                     placeholder="Last Distance"
                     value=""
                   />
                 </div>
               </div>
               <div class="form-group row">
-                <label for="lastChangeDate" class="col-sm-2 col-form-label"
+                <label for="last-date" class="col-sm-2 col-form-label"
                   >Change Date:
                 </label>
                 <div class="col-sm-10">
                   <input
                     type="text"
                     readonly
-                    class="form-control"
-                    id="lastDate"
+                    class="form-control "
+                    id="last-date"
                     placeholder="Last Change date"
                     value=""
                   />
                 </div>
               </div>
               <div class="form-group row">
-                <label for="lastNotes" class="col-sm-2 col-form-label"
+                <label for="last-notes" class="col-sm-2 col-form-label"
                   >Notes:
                 </label>
                 <div class="col-sm-10">
@@ -215,43 +239,40 @@
                     type="text"
                     readonly
                     class="form-control"
-                    id="lastNotes"
+                    id="last-notes"
                     placeholder="No notes available..."
                     style="resize: none;"
                   ></textarea>
                 </div>
               </div>
-              <!-- modal update -->
-              <div
-                style="margin-bottom: 0.5em; font-size: 24px;"
-              >
-                Update Shoes
-              </div>
+
+              <!-- modal shoes change -->
+              <div id="shoes-change-title" class="modal-title" style="margin-bottom: 0.5em; font-size: 24px;"></div>
               <!-- distance update -->
               <div class="form-group">
-                <label for="distance" class="col-form-label">Distance:</label>
+                <label for="distance" class="col-form-label">Change Distance:</label>
                 <input
                   type="text"
                   class="form-control"
                   id="recipient-name"
-                  placeholder="Enter distance here"
+                  placeholder=" Enter Distance: 0 - 25000000"
                 />
               </div>
               <!-- datepicker -->
               <div class="form-group">
-                <label for="change-date" class="col-form-label"
+                <label for="change-date" class="col-form-label "
                   >Change Date:</label
                 >
-                <duet-date-picker identifier="date"></duet-date-picker>
+                <duet-date-picker id="change-date" identifier="date" ></duet-date-picker>
               </div>
               <!-- notes -->
               <div class="form-group">
-                <label for="notes-text" class="col-form-label">Notes:</label>
+                <label for="notes-text" class="col-form-label">Change Notes:</label>
                 <textarea
                   style="resize: none;"
                   class="form-control"
-                  id="message-text"
-                  placeholder="Enter notes here"
+                  id="notes-text"
+                  placeholder="Enter Notes Here:"
                   ></textarea>
               </div>
             </form>
@@ -263,14 +284,14 @@
                   class="btn btn-primary"
                   data-dismiss="modal"
                 >
-                  Change Shoes
+                  Update Values
                 </button>
               </div>
               <div class="pull-right">
                 <button
                   id="modal-close"
                   type="button"
-                  class="btn btn-default"
+                  class="btn btn-Secondary"
                   data-dismiss="modal"
                 >
                   Close
